@@ -9,7 +9,10 @@ const CategoriesScreen = props => {
     const renderGridItem = (itemData) => {
         return (
             <TouchableOpacity style={styles.gridItem} onPress={() => {props.navigation.navigate({
-                routeName : 'CategoryMeals'
+                routeName : 'CategoryMeals',
+                params : {
+                    id : itemData.item.id
+                }
             })}}>
                 <View>
                     <Text>{itemData.item.title}</Text>
@@ -35,12 +38,8 @@ CategoriesScreen.navigationOptions = {
     title : 'Categories',
     headerStyle : {
         backgroundColor : Platform.OS === 'android' ?  colors.primary : '',
-        textAlign : 'center'
     },
     headerTintColor :  Platform.OS === 'android' ? 'white' : colors.primary,
-    headerTitleStyle : {
-        textAlign: 'center'
-    }
 }
 
 const styles = StyleSheet.create({

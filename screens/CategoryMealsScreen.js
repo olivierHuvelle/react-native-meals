@@ -1,13 +1,34 @@
 import React from 'react'
-import {View, Text, Button, StyleSheet } from 'react-native'
+import {View, Text, Button, Platform, StyleSheet} from 'react-native'
+
+import {CATEGORIES} from "../data/fake-data";
+import colors from "../theme/colors";
+import CategoriesScreen from "./CategoriesScreen";
+
 
 const CategoryMealsScreen = props => {
+    const id = props.navigation.getParam('id')
+    const selectedCategory = CATEGORIES.find(category => category.id === id)
+
     return (
         <View style={styles.screen}>
-            <Text>Category meal screen</Text>
+            <Text>{selectedCategory.title}</Text>
             <Button title="Go to meals details" onPress={() => {props.navigation.navigate('MealDetails')}}/>
         </View>
     )
+}
+
+CategoryMealsScreen.navigationOptions = (navigationData) => {
+    const id = navigationData.navigation.getParam('id')
+    const selectedCategory = CATEGORIES.find(category => category.id === id)
+
+    return {
+        title : selectedCategory.title,
+        headerStyle : {
+            backgroundColor : Platform.OS === 'android' ?  colors.primary : '',
+        },
+        headerTintColor :  Platform.OS === 'android' ? 'white' : colors.primary,
+    }
 }
 
 const styles = StyleSheet.create({
